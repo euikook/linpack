@@ -23,10 +23,22 @@
 */
 
 #include <stdio.h>
-#include <stdlib.h>
+#if !defined(NO_STDLIB_H)
+# include <stdlib.h>
+#endif
+
+/* maxwell */
+#include <sys/types.h>
+#include <sys/times.h>
+/* end maxwell */
+
 #include <math.h>
 #include <time.h>
 #include <float.h>
+
+#if defined(NO_SIZE_T)
+typedef unsigned long size_t;
+#endif
 
 #define DP
 
@@ -874,9 +886,16 @@ static int idamax(int n,REAL *dx,int incx)
 
 
 static REAL second(void)
-
+#if !defined(NO_CLOCK)
     {
     return ((REAL)((REAL)clock()/(REAL)CLOCKS_PER_SEC));
     }
+#else
+    {
+    struct tms t;
+    times(&t);
+    return ((REAL)(t.tms_utime + t.tms_stime) / CLOCKS_PER_SEC);
+    }
+#endif
 
 

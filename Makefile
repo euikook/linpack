@@ -1,4 +1,4 @@
 
 
 all:
-	$(CC) $(CFLAGS) -O3 -o linpack linpack.c
+	$(CC) $(CFLAGS) -O -o linpack linpack.c -lm
