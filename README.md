@@ -1,0 +1,6 @@
+# Linpack
+
+```
+make
+./linpack
+```
